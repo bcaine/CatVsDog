@@ -8,7 +8,7 @@ __date__ = "1/22/2016"
 import networkx as nx
 from networkx.algorithms import bipartite
 
-from 
+from input_helpers import format_input, read_stdin
 
 
 class CatsVsDogs(object):
@@ -22,8 +22,6 @@ class CatsVsDogs(object):
         assert(self.c >= 1 and self.c < 100)
         assert(self.d >= 1 and self.d < 100)
         assert(self.v >= 0 and self.v < 500)
-    
-        
     
     def _conflict(self, n1, n2):
         vote1 = self.graph.node[n1]['votes']
@@ -68,10 +66,9 @@ class CatsVsDogs(object):
         return self.v - len(matching)
 
 
-
-print max_satisfied_voters(data[instance])
-
-
 if __name__=="__main__":
-    data = format_input(in1)
 
+    # Read data from stdin
+    input_text = read_stdin()
+    print input_text
+    data = format_input(input_text)
