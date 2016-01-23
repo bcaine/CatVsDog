@@ -7,12 +7,10 @@ __date__ = "1/22/2016"
 
 import networkx as nx
 from networkx.algorithms import bipartite
-
 from input_helpers import format_input, read_stdin
 
 
 class CatsVsDogs(object):
-
 
     def __init__(self, data):
         self.graph = nx.Graph()
@@ -60,15 +58,17 @@ class CatsVsDogs(object):
                 if self._conflict(n1, n2):
                     self.graph.add_edge(n1, n2)
                 
-        matching = bipartite.maximum_matching(graph)
+        matching = bipartite.maximum_matching(self.graph)
         matching = self._remove_duplicates(matching)
     
         return self.v - len(matching)
 
 
 if __name__=="__main__":
-
     # Read data from stdin
     input_text = read_stdin()
-    print input_text
     data = format_input(input_text)
+
+    for instance in data:
+        cats_vs_dogs = CatsVsDogs(instance)
+        print cats_vs_dogs.max_satisfied_voters()

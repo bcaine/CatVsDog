@@ -7,16 +7,14 @@ __date__ = "1/22/2016"
 
 import sys
 
-def read_stdin():
-    for line in sys.stdin:
-        import pdb; pdb.set_trace()
-        print line
 
-    return None
+def read_stdin():
+    data = sys.stdin.readlines()
+    data = [d.strip().split(" ") for d in data]
+    return data
+
 
 def format_input(data):
-    data = [d.split(" ") for d in data.split("\n")]
-    
     # Get rid of any starting or trailing empty strings
     if len(data[0]) == 0:
         data = data[1:]
