@@ -32,6 +32,7 @@ from input_helpers import format_input, read_stdin
 class CatsVsDogs(object):
 
     def __init__(self, instance):
+        """ Create the graph and seperate out the data"""
         self.graph = nx.Graph()
         self.c, self.d, self.v = instance['header']
         self.votes = instance['votes']
@@ -41,6 +42,7 @@ class CatsVsDogs(object):
         assert self.v >= 0 and self.v < 500
 
     def _conflict(self, node_1, node_2):
+        """Returns whether or not there is a conflict between two nodes"""
         vote1 = self.graph.node[node_1]['votes']
         vote2 = self.graph.node[node_2]['votes']
         # Check if what vote1 loves is what
@@ -52,6 +54,7 @@ class CatsVsDogs(object):
         return False
 
     def _remove_duplicates(self, matching):
+        """Removes duplicates from a matching"""
         # Sort the individual tuples so (1, 4) and (4, 1) are
         # now both (1, 4), which makes deduping easy
         sorted_matches = [sorted(m) for m in matching.items()]
@@ -62,6 +65,7 @@ class CatsVsDogs(object):
         return deduped
 
     def max_satisfied_voters(self):
+        """Calculates the maximum number of satisfied voters of an instance"""
         if self.v == 0:
             return 0
 
