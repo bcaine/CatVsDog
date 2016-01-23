@@ -24,9 +24,10 @@ __email__ = "Bcaine0@gmail.com"
 __date__ = "1/22/2016"
 
 
+import sys
 import networkx as nx
 from networkx.algorithms import bipartite
-from input_helpers import format_input, read_stdin
+from input_helpers import read_stdin, format_input
 
 
 class CatsVsDogs(object):
