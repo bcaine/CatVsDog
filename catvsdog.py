@@ -46,13 +46,8 @@ class CatsVsDogs(object):
         """Returns whether or not there is a conflict between two nodes"""
         vote1 = self.graph.node[node_1]['votes']
         vote2 = self.graph.node[node_2]['votes']
-        # Check if what vote1 loves is what
-        # vote2 hates, or vise versa
-        if vote1[0] == vote2[1]:
-            return True
-        if vote1[1] == vote2[0]:
-            return True
-        return False
+        # Check if what vote1 loves is what vote2 hates, or vise versa
+        return (vote1[0] == vote2[1]) or (vote1[1] == vote2[0])
 
     def _remove_duplicates(self, matching):
         """Removes duplicates from a matching"""
