@@ -19,4 +19,5 @@ satisfied voters.
 
 To run:
 
-   cat tests/in1.txt | python catsvsdogs.py
+
+    cat tests/in1.txt | python catsvsdogs.py
