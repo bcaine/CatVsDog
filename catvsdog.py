@@ -25,8 +25,7 @@ __date__ = "1/22/2016"
 
 
 import sys
-import networkx as nx
-from networkx.algorithms import bipartite
+from graph import Graph
 from input_helpers import read_stdin, format_input
 
 
@@ -34,7 +33,7 @@ class CatsVsDogs(object):
 
     def __init__(self, instance):
         """ Create the graph and seperate out the data"""
-        self.graph = nx.Graph()
+        self.graph = Graph()
         self.c, self.d, self.v = instance['header']
         self.votes = instance['votes']
 
@@ -54,6 +53,7 @@ class CatsVsDogs(object):
             return True
         return False
 
+    # TODO: Potentially remove
     def _remove_duplicates(self, matching):
         """Removes duplicates from a matching"""
         # Sort the individual tuples so (1, 4) and (4, 1) are
@@ -76,16 +76,15 @@ class CatsVsDogs(object):
             self.graph.add_node(i, loves=loves_val, votes=vote)
 
         # Create edges for each conflict
-        for node_1 in self.graph.nodes():
-            for node_2 in self.graph.nodes():
-                if node_1 == node_2:
+        for u in self.graph.nodes():
+            for v in self.graph.nodes():
+                if u == v:
                     continue
 
-                if self._conflict(node_1, node_2):
-                    self.graph.add_edge(node_1, node_2)
+                if self._conflict(u, v):
+                    self.graph.add_edge(u, v)
 
-        matching = bipartite.maximum_matching(self.graph)
-        matching = self._remove_duplicates(matching)
+        matching = self.graph.maximum_matching('loves')
 
         return self.v - len(matching)
 
@@ -98,3 +97,5 @@ if __name__ == "__main__":
     for inst in data:
         cats_vs_dogs = CatsVsDogs(inst)
         print cats_vs_dogs.max_satisfied_voters()
+        # print cats_vs_dogs.graph.nodes(data=True)
+        # print cats_vs_dogs.graph.edges(data=True)
